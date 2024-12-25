@@ -18,7 +18,7 @@ function scrapeData(data) {
       });
     } else {
       itemMap.set(name, {
-        itemCount: itemCount + 1,
+        itemCount: itemCount - 1,
         totalSpent: totalSpent - price,
       });
     }
