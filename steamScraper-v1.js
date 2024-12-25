@@ -1,4 +1,5 @@
 import fs from "fs";
+import path from "path";
 
 // Function to scrape JSON data and store in a Map
 function scrapeData(data) {
@@ -29,7 +30,8 @@ function scrapeData(data) {
   return [itemMap, countMap];
 }
 
-fs.readFile("apiResponse.json", "utf8", (err, jsonString) => {
+const filePath = path.join("json", "apiResponse.json");
+fs.readFile(filePath, "utf8", (err, jsonString) => {
   if (err) {
     console.log("Error reading file", err);
     return;
