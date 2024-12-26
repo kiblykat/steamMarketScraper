@@ -1,3 +1,7 @@
+var g_plotPriceHistory = null;
+var g_timePriceHistoryEarliest = new Date();
+var g_timePriceHistoryLatest = new Date();
+
 export const fractureCase = [
   ["Aug 07 2020 01: +0", 14.555, "57688"],
   ["Aug 08 2020 01: +0", 9.422, "48599"],
@@ -2293,7 +2297,7 @@ export const fractureCase = [
   ["Dec 26 2024 09: +0", 0.395, "3995"],
 ];
 g_timePriceHistoryEarliest = new Date();
-if (line1 != false) {
-  g_timePriceHistoryEarliest = new Date(line1[0][0]);
-  g_timePriceHistoryLatest = new Date(line1[line1.length - 1][0]);
+if (fractureCase != false) {
+  g_timePriceHistoryEarliest = new Date(fractureCase[0][0]);
+  g_timePriceHistoryLatest = new Date(fractureCase[fractureCase.length - 1][0]);
 }
