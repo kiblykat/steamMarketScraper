@@ -13,12 +13,12 @@ function scrapeData(data) {
     let { itemCount, totalSpent } = currentItem;
     if (is_credit) {
       itemMap.set(name, {
-        itemCount: itemCount + 1,
+        itemCount: itemCount - 1,
         totalSpent: totalSpent + price,
       });
     } else {
       itemMap.set(name, {
-        itemCount: itemCount - 1,
+        itemCount: itemCount + 1,
         totalSpent: totalSpent - price,
       });
     }
