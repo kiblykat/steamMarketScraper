@@ -25,19 +25,19 @@ function App() {
     //[[a,b,c],[a,b,c],[a,b,c],[a,b,c]]
     for(let datapoint of data){
       const [time, price, sales] = datapoint
-      let currTimes = datapointMap.get("times") 
+      let currTimestamps = datapointMap.get("timestamps") 
       let currPrices = datapointMap.get("prices")
       let currTotalSales = datapointMap.get("totalSales")
-      currTimes?currTimes.push(time):currTimes=[time]
+      currTimestamps?currTimestamps.push(time):currTimestamps=[time]
       currPrices?currPrices.push(price):currPrices=[price]
       currTotalSales?currTotalSales.push(sales):currTotalSales=[sales]
       
-      datapointMap.set("times", currTimes)
+      datapointMap.set("timestamps", currTimestamps)
       datapointMap.set("prices", currPrices)
       datapointMap.set("totalSales", currTotalSales)
     }
     /*output:
-      times:
+      timestamps:
       prices:
       totalSales:
     */
@@ -45,11 +45,11 @@ function App() {
   }
 
   const chartData = {
-    labels: data.timestamps || [], // Assuming data.timestamps is an array of timestamps
+    labels: data.get("timestamps") || [], // Assuming data.timestamps is an array of timestamps
     datasets: [
       {
         label: 'Data over Time',
-        data: data.values || [], // Assuming data.values is an array of values corresponding to the timestamps
+        data: data.get("prices") || [], // Assuming data.values is an array of values corresponding to the timestamps
         fill: false,
         backgroundColor: 'rgba(75,192,192,0.2)',
         borderColor: 'rgba(75,192,192,1)',
