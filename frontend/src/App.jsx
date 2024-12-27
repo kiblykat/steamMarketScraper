@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import steamApi from "../api/api";
 
 import { Line } from "react-chartjs-2";
@@ -25,15 +25,14 @@ ChartJS.register(
 
 function App() {
   const [data, setData] = useState(new Map());
+  const [search, setSearch] = useState("");
 
-  const fetchData = async (val) => {
-    const response = await steamApi.get(`/api/data/${val}`);
-    const datapointMap = retrieveXYaxis(response.data);
-    console.log(datapointMap);
-    setData(datapointMap);
+  const handleEnter = (e) => {
+    if (e.key === "Enter") {
+      fetchData(search);
+    }
   };
 
-  //this function populates the map
   const retrieveXYaxis = (data) => {
     const datapointMap = new Map();
     for (let datapoint of data) {
@@ -53,26 +52,39 @@ function App() {
     return datapointMap;
   };
 
-  //draw out the chart
-  const chartData = {
-    labels: data.get("timestamps") || [],
-    datasets: [
-      {
-        label: "Fracture Case",
-        data: data.get("prices") || [],
-        fill: false,
-        backgroundColor: "rgba(75,192,192,0.2)",
-        borderColor: "rgba(75,192,192,1)",
-      },
-    ],
+  const fetchData = async (val) => {
+    const response = await steamApi.get(`/api/data/${val}`);
+    const datapointMap = retrieveXYaxis(response.data);
+    console.log(datapointMap);
+    setData(datapointMap);
   };
+
+  //draw out the chart only when search
+  const chartData = useMemo(
+    () => ({
+      labels: data.get("timestamps") || [],
+      datasets: [
+        {
+          label: `${search}`,
+          data: data.get("prices") || [],
+          fill: false,
+          backgroundColor: "rgba(75,192,192,0.2)",
+          borderColor: "rgba(75,192,192,1)",
+        },
+      ],
+    }),
+    [data]
+  );
 
   return (
     <>
-      <button
-        className="btn btn-primary m-2"
-        onClick={() => fetchData("cs20-case")}
-      >
+      <input
+        className="input input-bordered"
+        onChange={(e) => setSearch(e.target.value)}
+        value={search}
+        onKeyDown={handleEnter}
+      ></input>
+      <button className="btn btn-primary m-2" onClick={() => fetchData(search)}>
         Log Data
       </button>
       <Line data={chartData} />
