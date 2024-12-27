@@ -2,11 +2,8 @@ var g_plotPriceHistory = null;
 var g_timePriceHistoryEarliest = new Date();
 var g_timePriceHistoryLatest = new Date();
 
-var rgAppItems = g_rgAssets[730];
-var rgContextItems = rgAppItems["2"];
-var rgItem = rgContextItems["18530025771"];
 
-var line1 = [
+export const CS20Case = [
   ["Oct 18 2019 01: +0", 8.842, "55948"],
   ["Oct 19 2019 01: +0", 4.839, "267246"],
   ["Oct 20 2019 01: +0", 2.605, "227959"],
@@ -2594,15 +2591,3 @@ var line1 = [
   ["Dec 26 2024 08: +0", 0.966, "152"],
   ["Dec 26 2024 09: +0", 0.939, "128"],
 ];
-g_timePriceHistoryEarliest = new Date();
-if (line1 != false) {
-  g_timePriceHistoryEarliest = new Date(line1[0][0]);
-  g_timePriceHistoryLatest = new Date(line1[line1.length - 1][0]);
-}
-
-g_plotPriceHistory = CreatePriceHistoryGraph(
-  line1,
-  7,
-  strFormatPrefix,
-  strFormatSuffix
-);

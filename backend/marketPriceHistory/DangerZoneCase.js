@@ -1,8 +1,5 @@
-var g_plotPriceHistory = null;
-var g_timePriceHistoryEarliest = new Date();
-var g_timePriceHistoryLatest = new Date();
 
-var line1 = [
+export const DangerZoneCase = [
   ["Dec 06 2018 01: +0", 13.517, "6244"],
   ["Dec 07 2018 01: +0", 7.419, "56834"],
   ["Dec 08 2018 01: +0", 4.49, "60651"],
@@ -2906,15 +2903,3 @@ var line1 = [
   ["Dec 26 2024 08: +0", 1.322, "382"],
   ["Dec 26 2024 09: +0", 1.311, "495"],
 ];
-g_timePriceHistoryEarliest = new Date();
-if (line1 != false) {
-  g_timePriceHistoryEarliest = new Date(line1[0][0]);
-  g_timePriceHistoryLatest = new Date(line1[line1.length - 1][0]);
-}
-
-g_plotPriceHistory = CreatePriceHistoryGraph(
-  line1,
-  7,
-  strFormatPrefix,
-  strFormatSuffix
-);
