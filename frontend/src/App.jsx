@@ -13,7 +13,7 @@ function App() {
   //retrieve data on page load
   useEffect(() => {
     const fetchData = async () => {
-      const response = await steamApi.get("/api/data");
+      const response = await steamApi.get("/api/data/fracture-case");
       const datapointMap = retrieveXYaxis(response.data)
       console.log(datapointMap)
       setData(datapointMap);
