@@ -10,6 +10,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 function App() {
   const [data, setData] = useState(new Map());
 
+  //retrieve data on page load
   useEffect(() => {
     const fetchData = async () => {
       const response = await steamApi.get("/api/data");
@@ -20,9 +21,9 @@ function App() {
     fetchData();
   }, []);
 
+  //this function populates the map
   const retrieveXYaxis = (data) => {
     const datapointMap = new Map()
-    //[[a,b,c],[a,b,c],[a,b,c],[a,b,c]]
     for(let datapoint of data){
       const [time, price, sales] = datapoint
       let currTimestamps = datapointMap.get("timestamps") 
@@ -36,20 +37,17 @@ function App() {
       datapointMap.set("prices", currPrices)
       datapointMap.set("totalSales", currTotalSales)
     }
-    /*output:
-      timestamps:
-      prices:
-      totalSales:
-    */
+
    return datapointMap
   }
 
+  //draw out the chart
   const chartData = {
-    labels: data.get("timestamps") || [], // Assuming data.timestamps is an array of timestamps
+    labels: data.get("timestamps") || [], 
     datasets: [
       {
-        label: 'Data over Time',
-        data: data.get("prices") || [], // Assuming data.values is an array of values corresponding to the timestamps
+        label: 'Fracture Case',
+        data: data.get("prices") || [], 
         fill: false,
         backgroundColor: 'rgba(75,192,192,0.2)',
         borderColor: 'rgba(75,192,192,1)',
@@ -59,7 +57,6 @@ function App() {
 
   return (
     <>
-    
       <Line data={chartData} />
     </>
   );
