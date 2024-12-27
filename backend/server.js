@@ -1,6 +1,15 @@
 import express from "express";
 import cors from "cors";
-import { retrieveCS20Case, retrieveDangerZoneCase, retrieveFractureCase, retrieveHorizonCase, retrievePrisma2Case, retrievePrismaCase, retrieveSnakebiteCase } from "./routes/caseRoutes.js";
+import {
+  retrieveChromaCase,
+  retrieveCS20Case,
+  retrieveDangerZoneCase,
+  retrieveFractureCase,
+  retrieveHorizonCase,
+  retrievePrisma2Case,
+  retrievePrismaCase,
+  retrieveSnakebiteCase,
+} from "./routes/caseRoutes.js";
 
 const app = express();
 app.use(cors());
@@ -13,6 +22,7 @@ app.get("/api/data/horizon-case", retrieveHorizonCase);
 app.get("/api/data/prisma-2-case", retrievePrisma2Case);
 app.get("/api/data/prisma-case", retrievePrismaCase);
 app.get("/api/data/snakebite-case", retrieveSnakebiteCase);
+app.get("/api/data/chroma-case", retrieveChromaCase);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
