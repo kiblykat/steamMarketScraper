@@ -78,6 +78,9 @@ function App() {
           <Line data={chartData} options={options} />
         </div>
       </div>
+      <div className="mx-5 my-2">Earliest Recorded Date:</div>
+      <div className="mx-5 my-2">Lowest Price Date:</div>
+      <div className="mx-5 my-2">Time taken to reach lowest Price:</div>
     </>
   );
 }
