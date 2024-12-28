@@ -17,5 +17,6 @@ export const retrieveXYaxis = (data) => {
     datapointMap.set("totalSales", currTotalSales);
   }
 
+  //datapointMap: {timestamps:[a1,a2,a3], prices:[b1,b2,b3], totalSales:[c1,c2,c3]}
   return datapointMap;
 };

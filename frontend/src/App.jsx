@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import steamApi from "../api/api";
 import { retrieveXYaxis } from "./services/retrieveXYaxis";
+import { options } from "./utilities/chartOptions";
 
 import { Line } from "react-chartjs-2";
 import {
@@ -34,10 +35,11 @@ function App() {
     }
   };
 
-  const fetchData = async (val) => {
-    const response = await steamApi.get(`/api/data/${val}`);
+  const fetchData = async (searchVal) => {
+    const response = await steamApi.get(`/api/data/${searchVal}`);
     const datapointMap = retrieveXYaxis(response.data);
     console.log(datapointMap);
+    datapointMap.set("name", searchVal);
     setData(datapointMap);
   };
 
@@ -47,11 +49,12 @@ function App() {
       labels: data.get("timestamps") || [],
       datasets: [
         {
-          label: `${search}`,
+          label: `${data.get("name")} Prices`,
           data: data.get("prices") || [],
           fill: false,
           backgroundColor: "rgba(75,192,192,0.2)",
           borderColor: "rgba(75,192,192,1)",
+          pointRadius: 0,
         },
       ],
     }),
@@ -70,7 +73,7 @@ function App() {
         Log Data
       </button>
       <div className="w-1/2 my-auto">
-        <Line data={chartData} />
+        <Line data={chartData} options={options} />
       </div>
     </>
   );
