@@ -69,7 +69,9 @@ function App() {
       <button className="btn btn-primary m-2" onClick={() => fetchData(search)}>
         Log Data
       </button>
-      <Line data={chartData} />
+      <div className="w-1/2 my-auto">
+        <Line data={chartData} />
+      </div>
     </>
   );
 }
