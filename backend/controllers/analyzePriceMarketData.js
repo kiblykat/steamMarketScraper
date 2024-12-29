@@ -2,7 +2,7 @@
 // an example api for searching cases in CS is container is:
 // https://steamcommunity.com/market/search/render/?query=case&start=0&count=50&search_descriptions=0&sort_column=default&sort_dir=desc&appid=730&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_Tournament%5B%5D=any&category_730_TournamentTeam%5B%5D=any&category_730_Type%5B%5D=tag_CSGO_Type_WeaponCase&category_730_Weapon%5B%5D=any
 import axios from "axios";
-import { marketCasesSearchData } from "../../jsonData/marketCasesSearch";
+// import { marketCasesSearchData } from "../../jsonData/marketCasesSearch.js";
 
 export const url =
   "https://steamcommunity.com/market/search/render/?query=case&start=0&count=50&search_descriptions=0&sort_column=default&sort_dir=desc&appid=730&category_730_ItemSet%5B%5D=any&category_730_ProPlayer%5B%5D=any&category_730_StickerCapsule%5B%5D=any&category_730_Tournament%5B%5D=any&category_730_TournamentTeam%5B%5D=any&category_730_Type%5B%5D=tag_CSGO_Type_WeaponCase&category_730_Weapon%5B%5D=any";
@@ -10,15 +10,14 @@ export const url =
 export const getJsonData = async (url) => {
   try {
     const response = await axios.get(url);
-    console.log(response.data);
-    return response.data;
+    return response.data.results_html;
   } catch (error) {
     console.error(error);
   }
 };
 
 export const retrieveNamePriceQtyArray = async () => {
-  const jsonData = marketCasesSearchData.results_html;
+  const jsonData = await getJsonData(url);
   const namePattern = /data-hash-name="([^"]+)"/g;
   const pricePattern = /data-price="(\d+)"/g;
   const qtyPattern = /data-qty="(\d+)"/g;

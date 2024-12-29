@@ -10,6 +10,7 @@ import {
   retrievePrismaCase,
   retrieveSnakebiteCase,
 } from "./routes/caseRoutes.js";
+import { retrieveMarketAnalysis } from "./routes/analyzePriceMarketRoute.js";
 
 const app = express();
 app.use(cors());
@@ -23,6 +24,8 @@ app.get("/api/data/prisma-2-case", retrievePrisma2Case);
 app.get("/api/data/prisma-case", retrievePrismaCase);
 app.get("/api/data/snakebite-case", retrieveSnakebiteCase);
 app.get("/api/data/chroma-case", retrieveChromaCase);
+
+app.get("/api/data/analyze-price-market", retrieveMarketAnalysis);
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
