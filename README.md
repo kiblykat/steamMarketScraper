@@ -13,3 +13,5 @@ This project is meant to find out the amount spent on the steam market, in the a
 ### marketPriceHistory folder:
 
 - This folder contains relevant items scraped from the steam market to analyze past prices. They are stored in Array objects.
+
+new endpoint: http://localhost:3001/api/data/analyze-price-market to draw graph of price vs quantity sold (view which might be undervalued)
