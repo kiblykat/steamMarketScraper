@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import steamApi from "../api/api";
 import { retrieveXYaxis } from "./services/retrieveXYaxis";
 import { options } from "./utilities/chartOptions";
+import { retrieveNamePriceQtyArray } from "./services/analyzePriceMarketData";
 
 import { Line } from "react-chartjs-2";
 import {
@@ -28,6 +29,7 @@ ChartJS.register(
 function App() {
   const [data, setData] = useState(new Map());
   const [search, setSearch] = useState("");
+  const [analyzedMarketData, setAnalyzedMarketData] = useState([]);
 
   const handleEnter = (e) => {
     if (e.key === "Enter") {
@@ -61,6 +63,36 @@ function App() {
     [data]
   );
 
+  const marketData = useMemo(
+    //[names, prices, quantities]
+
+    () => ({
+      labels: analyzedMarketData[2] || [], //x-axis
+      datasets: [
+        {
+          label: "Market Prices",
+          data: analyzedMarketData[1] || [], //y-axis
+          fill: false,
+          backgroundColor: "rgba(75,192,192,0.2)",
+          borderColor: "rgba(75,192,192,1)",
+          pointRadius: 0,
+        },
+      ],
+    }),
+    [analyzedMarketData]
+  );
+
+  useEffect(() => {
+    const analyzePriceMarketData = async () => {
+      //response: [names, prices, quantities]
+      const response = await retrieveNamePriceQtyArray();
+      setAnalyzedMarketData(response);
+      console.log(response);
+      return response;
+    };
+    analyzePriceMarketData();
+  }, []);
+
   return (
     <>
       <input
@@ -81,6 +113,11 @@ function App() {
       <div className="mx-5 my-2">Earliest Recorded Date:</div>
       <div className="mx-5 my-2">Lowest Price Date:</div>
       <div className="mx-5 my-2">Time taken to reach lowest Price:</div>
+      <div className="container mx-auto p-4">
+        <div className="w-full h-96">
+          <Line data={marketData} />
+        </div>
+      </div>
     </>
   );
 }
