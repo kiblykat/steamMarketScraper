@@ -41,7 +41,7 @@ function App() {
     const response = await steamApi.get(`/api/data/${searchVal}`);
     const datapointMap = retrieveXYaxis(response.data);
     console.log(datapointMap);
-    datapointMap.set("name", searchVal);
+    datapointMap.set("itemName", searchVal);
     setData(datapointMap);
   };
 
@@ -51,7 +51,7 @@ function App() {
       labels: data.get("timestamps") || [],
       datasets: [
         {
-          label: `${data.get("name")} Prices`,
+          label: `${data.get("itemName")} Prices`,
           data: data.get("prices") || [],
           fill: false,
           backgroundColor: "rgba(75,192,192,0.2)",
@@ -95,6 +95,12 @@ function App() {
     analyzePriceMarketData();
   }, []);
 
+  const timestamps = data.get("timestamps") ? data.get("timestamps") : [];
+  const earliestRecordedDate = timestamps[0];
+  const prices = data.get("prices") ? data.get("prices") : [];
+  const minPrice = Math.min(...prices);
+  const minPriceDate = timestamps[prices.indexOf(minPrice)];
+
   return (
     <>
       <input
@@ -112,9 +118,17 @@ function App() {
           <Line data={chartData} options={options} />
         </div>
       </div>
-      <div className="mx-5 my-2">Earliest Recorded Date:</div>
-      <div className="mx-5 my-2">Lowest Price Date:</div>
-      <div className="mx-5 my-2">Time taken to reach lowest Price:</div>
+      <div className="mx-5 my-2">
+        Earliest Recorded Date: {earliestRecordedDate}
+      </div>
+      <div className="mx-5 my-2">Minimum Price: {minPrice}</div>
+      <div className="mx-5 my-2">Minimum Price Date: {minPriceDate}</div>
+      <div className="mx-5 my-2">Time taken to reach minimum Price:</div>
+      <div className="mx-5 my-2">Time hovering at minimum price:</div>
+      <div className="mx-5 my-2">
+        Time from minimum price to 100% increase from min price:
+      </div>
+      <div className="mx-5 my-2">Date case was discontinued:</div>
       <div className="container mx-auto p-4">
         <div className="w-full h-96">
           <Line data={marketData} />
