@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import steamApi from "../api/api";
 import { retrieveXYaxis } from "./services/retrieveXYaxis";
 import { options } from "./utilities/chartOptions";
-import { retrieveNamePriceQtyArray } from "./services/analyzePriceMarketData";
 
 import { Line } from "react-chartjs-2";
 import {
@@ -15,6 +14,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import axios from "axios";
 
 ChartJS.register(
   CategoryScale,
@@ -85,8 +85,10 @@ function App() {
   useEffect(() => {
     const analyzePriceMarketData = async () => {
       //response: [names, prices, quantities]
-      const response = await retrieveNamePriceQtyArray();
-      setAnalyzedMarketData(response);
+      const response = await axios.get(
+        "http://localhost:3001/api/data/analyze-price-market"
+      );
+      setAnalyzedMarketData(response.data);
       console.log(response);
       return response;
     };
