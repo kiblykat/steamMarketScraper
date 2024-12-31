@@ -95,11 +95,25 @@ function App() {
     analyzePriceMarketData();
   }, []);
 
-  const timestamps = data.get("timestamps") ? data.get("timestamps") : [];
-  const earliestRecordedDate = timestamps[0];
-  const prices = data.get("prices") ? data.get("prices") : [];
+  const timestamps = data.get("timestamps") || [];
+  const earliestRecordedDate = new Date(timestamps[0]);
+  const prices = data.get("prices") || [];
   const minPrice = Math.min(...prices);
-  const minPriceDate = timestamps[prices.indexOf(minPrice)];
+  const minPriceIndex = prices.indexOf(minPrice);
+  console.log(`minPriceIndex: ${minPriceIndex}`);
+  const minPriceDate = new Date(timestamps[minPriceIndex]);
+  const timeTakenToMinPrice = new Date(minPriceDate - earliestRecordedDate); //returns difference in ms
+
+  //find the 800% date AFTER minimum price reached
+  const indexWhenPriceReached800Percent =
+    prices.slice(minPriceIndex).findIndex((price) => price >= minPrice * 8) +
+    minPriceIndex;
+  const dateWhenPriceReached800Percent = new Date(
+    timestamps[indexWhenPriceReached800Percent]
+  );
+  let timeTakenFromMinPriceTo800Percent = new Date(
+    dateWhenPriceReached800Percent - minPriceDate
+  );
 
   return (
     <>
@@ -119,14 +133,25 @@ function App() {
         </div>
       </div>
       <div className="mx-5 my-2">
-        Earliest Recorded Date: {earliestRecordedDate}
+        Earliest Recorded Date: {earliestRecordedDate.toDateString()}
       </div>
+      <div className="mx-5 my-2">Days in market: {timestamps.length} days</div>
       <div className="mx-5 my-2">Minimum Price: {minPrice}</div>
-      <div className="mx-5 my-2">Minimum Price Date: {minPriceDate}</div>
-      <div className="mx-5 my-2">Time taken to reach minimum Price:</div>
+      <div className="mx-5 my-2">
+        Minimum Price Date: {minPriceDate.toDateString()}
+      </div>
+      <div className="mx-5 my-2">
+        Time taken to reach minimum Price:
+        {timeTakenToMinPrice / (1000 * 60 * 60 * 24)} days
+      </div>
       <div className="mx-5 my-2">Time hovering at minimum price:</div>
       <div className="mx-5 my-2">
-        Time from minimum price to 100% increase from min price:
+        Time from minimum price to 800% increase from min price:{" "}
+        {timeTakenFromMinPriceTo800Percent / (1000 * 60 * 60 * 24)} days
+      </div>
+      <div className="mx-5 my-2">
+        Date when reached 800% increase from min price:{" "}
+        {dateWhenPriceReached800Percent.toDateString()}
       </div>
       <div className="mx-5 my-2">Date case was discontinued:</div>
       <div className="container mx-auto p-4">
