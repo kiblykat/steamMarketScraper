@@ -133,27 +133,43 @@ function App() {
         </div>
       </div>
       <div className="mx-5 my-2">
-        Earliest Recorded Date: {earliestRecordedDate.toDateString()}
-      </div>
-      <div className="mx-5 my-2">Days in market: {timestamps.length} days</div>
-      <div className="mx-5 my-2">Minimum Price: {minPrice}</div>
-      <div className="mx-5 my-2">
-        Minimum Price Date: {minPriceDate.toDateString()}
+        <span className="font-bold">Earliest Recorded Date: </span>
+        {earliestRecordedDate.toDateString()}
       </div>
       <div className="mx-5 my-2">
-        Time taken to reach minimum Price:
+        <span className="font-bold">Days in market:</span> {timestamps.length}{" "}
+        days
+      </div>
+      <div className="mx-5 my-2">
+        <span className="font-bold">Minimum Price: </span>
+        {minPrice}
+      </div>
+      <div className="mx-5 my-2">
+        <span className="font-bold">Minimum Price Date: </span>
+        {minPriceDate.toDateString()}
+      </div>
+      <div className="mx-5 my-2">
+        <span className="font-bold">Time taken to reach minimum Price:</span>{" "}
         {timeTakenToMinPrice / (1000 * 60 * 60 * 24)} days
       </div>
-      <div className="mx-5 my-2">Time hovering at minimum price:</div>
       <div className="mx-5 my-2">
-        Time from minimum price to 800% increase from min price:{" "}
+        <span className="font-bold"></span>Time hovering at minimum price:
+      </div>
+      <div className="mx-5 my-2">
+        <span className="font-bold">
+          Time from minimum price to 800% increase from min price:
+        </span>{" "}
         {timeTakenFromMinPriceTo800Percent / (1000 * 60 * 60 * 24)} days
       </div>
       <div className="mx-5 my-2">
-        Date when reached 800% increase from min price:{" "}
+        <span className="font-bold">
+          Date when reached 800% increase from min price:
+        </span>{" "}
         {dateWhenPriceReached800Percent.toDateString()}
       </div>
-      <div className="mx-5 my-2">Date case was discontinued:</div>
+      <div className="mx-5 my-2">
+        <span className="font-bold">Date case was discontinued:</span>
+      </div>
       <div className="container mx-auto p-4">
         <div className="w-full h-96">
           <Line data={marketData} />
