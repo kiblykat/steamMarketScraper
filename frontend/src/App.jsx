@@ -1,30 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import steamApi from "../api/api";
 import { retrieveXYaxis } from "./services/retrieveXYaxis";
-import { options } from "./utilities/chartOptions";
-
-import { Line } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import DrawChart from "./components/DrawChart";
 import axios from "axios";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
 function App() {
   const [data, setData] = useState(new Map());
@@ -100,7 +78,6 @@ function App() {
   const prices = data.get("prices") || [];
   const minPrice = Math.min(...prices);
   const minPriceIndex = prices.indexOf(minPrice);
-  console.log(`minPriceIndex: ${minPriceIndex}`);
   const minPriceDate = new Date(timestamps[minPriceIndex]);
   const timeTakenToMinPrice = new Date(minPriceDate - earliestRecordedDate); //returns difference in ms
 
@@ -129,7 +106,7 @@ function App() {
       <div className="divider"></div>
       <div className="container mx-auto p-4">
         <div className="w-full h-96">
-          <Line data={chartData} options={options} />
+          <DrawChart chartData={chartData} />
         </div>
       </div>
       <div className="mx-5 my-2">
@@ -172,7 +149,7 @@ function App() {
       </div>
       <div className="container mx-auto p-4">
         <div className="w-full h-96">
-          <Line data={marketData} />
+          <DrawChart chartData={marketData} />
         </div>
       </div>
     </>
