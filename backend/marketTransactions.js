@@ -35,7 +35,6 @@ fs.readFile(filePath, "utf8", (err, jsonString) => {
   try {
     const data = JSON.parse(jsonString);
     const itemMap = scrapeData(data);
-    console.log(itemMap);
   } catch (err) {
     console.error("Error parsing json", err);
   }

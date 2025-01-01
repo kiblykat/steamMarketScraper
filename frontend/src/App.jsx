@@ -18,7 +18,6 @@ function App() {
   const fetchData = async (searchVal) => {
     const response = await steamApi.get(`/api/data/${searchVal}`);
     const datapointMap = retrieveXYaxis(response.data);
-    console.log(datapointMap);
     datapointMap.set("itemName", searchVal);
     setData(datapointMap);
   };
@@ -67,7 +66,6 @@ function App() {
         "http://localhost:3001/api/data/analyze-price-market"
       );
       setAnalyzedMarketData(response.data);
-      console.log(response);
       return response;
     };
     analyzePriceMarketData();

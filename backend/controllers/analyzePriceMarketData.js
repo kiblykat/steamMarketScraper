@@ -32,7 +32,6 @@ export const retrieveNamePriceQtyArray = async () => {
     jsonData.matchAll(qtyPattern),
     (match) => match[1]
   );
-  console.log(names, prices, quantities);
 
   //transform into array of objects
   const combinedData = names.map((name, index) => ({
