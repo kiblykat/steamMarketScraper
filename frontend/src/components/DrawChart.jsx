@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Line } from "react-chartjs-2";
 import { options } from "../utilities/chartOptions";
 import {
