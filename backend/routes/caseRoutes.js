@@ -16,6 +16,7 @@ import { OperationHydraCase } from "../marketPriceHistory/OperationHydraCase.js"
 import { OperationRiptideCase } from "../marketPriceHistory/OperationRiptideCase.js";
 import { ShadowCase } from "../marketPriceHistory/ShadowCase.js";
 import { WinterOffensiveWeaponCase } from "../marketPriceHistory/WinterOffensiveWeaponCase-do not use.js";
+import { RecoilCase } from "../marketPriceHistory/RecoilCase.js";
 
 export const retrieveCS20Case = (req, res) => {
   res.status(200).json(CS20Case);
@@ -70,4 +71,7 @@ export const retrieveShadowCase = (req, res) => {
 };
 export const retrieveWinterOffensiveWeaponCase = (req, res) => {
   res.status(200).json(WinterOffensiveWeaponCase);
+};
+export const retrieveRecoilCase = (req, res) => {
+  res.status(200).json(RecoilCase);
 };

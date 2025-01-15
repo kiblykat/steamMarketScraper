@@ -19,6 +19,7 @@ import {
   retrieveOperationRiptideCase,
   retrieveShadowCase,
   retrieveWinterOffensiveWeaponCase,
+  retrieveRecoilCase,
 } from "./routes/caseRoutes.js";
 import { retrieveMarketAnalysis } from "./routes/analyzePriceMarketRoute.js";
 
@@ -38,6 +39,7 @@ app.get("/api/data/falchion-case", retrieveFalchionCase);
 app.get("/api/data/gamma-case", retrieveGammaCase);
 app.get("/api/data/glove-case", retrieveGloveCase);
 app.get("/api/data/huntsman-weapon-case", retrieveHuntsmanWeaponCase);
+app.get("/api/data/recoil-case", retrieveRecoilCase);
 app.get(
   "/api/data/operation-breakout-weapon-case",
   retrieveOperationBreakoutWeaponCase
